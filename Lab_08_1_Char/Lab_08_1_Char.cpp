@@ -8,6 +8,7 @@ char* Change(char* s)
 	int pos1 = 0,
 		pos2 = 0;
 	*t = 0;
+	int k = 0;
 	size_t len = strlen(s);
 	while (p = strchr(s + pos1, 'G'))
 	{
@@ -17,16 +18,21 @@ char* Change(char* s)
 			strncat_s(t, len, s + pos1, pos2 - pos1 - 3);
 			strcat_s(t, len, "**");
 			pos1 = pos2;
+			k++;
 		}
 		else
 		{
 			pos2 = p - s + 1;
-			strncat_s(t, len, s + pos1, pos2 - pos1);
+			strncat_s(t, len + 1, s + pos1, pos2 - pos1);
 			pos1 = pos2;
 		}
 	}
-	strcat_s(t, len, s + pos1);
-	strcpy_s(s, len, t);
+	if (k > 0)
+		cout << "Yes, Count : " << k << endl;
+	else
+		cout << "No" << endl;
+	strcat_s(t, len + 1, s + pos1);
+	strcpy_s(s, len + 1, t);
 	return t;
 }
 
