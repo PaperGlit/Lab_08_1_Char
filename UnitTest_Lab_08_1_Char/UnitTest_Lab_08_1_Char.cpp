@@ -1,7 +1,10 @@
-﻿#include <iostream>
-using namespace std;
+﻿#include "pch.h"
+#include "CppUnitTest.h"
+#include "../Lab_08_1_Char/Lab_08_1_Char.cpp"
 
-char* Change(char* s)
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+char* TestChange(char* s)
 {
 	char* t = new char[strlen(s)];
 	char* p;
@@ -30,14 +33,19 @@ char* Change(char* s)
 	return t;
 }
 
-int main()
+namespace UnitTestLab081Char
 {
-	char str[101];
-	cout << "Enter string:" << endl;
-	cin.getline(str, 100);
-	char* dest = new char[151];
-	dest = Change(str);
-	cout << "Modified string (param) : " << str << endl;
-	cout << "Modified string (result): " << dest << endl;
-	return 0;
+	TEST_CLASS(UnitTestLab081Char)
+	{
+	public:
+		
+		TEST_METHOD(TestMethod1)
+		{
+			char str[101] = "TESTOGOTESTAGA";
+			char teststr[101] = "TESTOGOTESTAGA";
+			char* dest = Change(str);
+			char* testdest = TestChange(teststr);
+			Assert::AreEqual(strcmp(dest, testdest), 0);
+		}
+	};
 }
